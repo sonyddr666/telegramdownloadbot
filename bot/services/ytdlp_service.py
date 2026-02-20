@@ -61,17 +61,7 @@ def build_options(info: dict, max_upload_mb: int) -> list[FormatOption]:
     return out[:30]
 
 def _extract_info_sync(url: str, proxy: str | None, cookies_file: str | None) -> dict:
-    opts = {
-        "quiet": True, 
-        "noprogress": True,
-        "impersonate": "chrome",  # Adicionado para evitar bloqueios 10054
-        "http_headers": {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-            "Accept-Language": "en-US,en;q=0.5",
-            "Sec-Fetch-Mode": "navigate",
-        }
-    }
+    opts = {"quiet": True, "noprogress": True}
     if proxy:
         opts["proxy"] = proxy
     if cookies_file:
@@ -105,13 +95,6 @@ def _download_sync(
         "progress_hooks": [hook],
         "noplaylist": True,
         "retries": 3,
-        "impersonate": "chrome",  # Mesma correção aqui pro download real!
-        "http_headers": {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-            "Accept-Language": "en-US,en;q=0.5",
-            "Sec-Fetch-Mode": "navigate",
-        }
     }
     if proxy:
         opts["proxy"] = proxy
